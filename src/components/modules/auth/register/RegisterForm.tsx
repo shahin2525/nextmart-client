@@ -9,15 +9,20 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { zodResolver } from "@hookform/resolvers/zod";
+import Link from "next/link";
 import { FieldValues, useForm } from "react-hook-form";
+import { registrationSchema } from "./registerValidation";
 
 const RegisterForm = () => {
-  const form = useForm();
+  const form = useForm({
+    resolver: zodResolver(registrationSchema),
+  });
   const onSubmit = (data: FieldValues) => {
     console.log(data);
   };
   return (
-    <div className="max-w-md flex-grow rounded-xl border-2 p-3">
+    <div className="max-w-md flex-grow rounded-xl border-gray-400 border-2 p-5 w-full">
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>
           <FormField
@@ -67,7 +72,7 @@ const RegisterForm = () => {
           />
           <FormField
             control={form.control}
-            name="password"
+            name="passwordConfirm"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Confirm Password</FormLabel>
@@ -84,6 +89,12 @@ const RegisterForm = () => {
             Submit
           </Button>
         </form>
+        <p className="text-center">
+          Already have an account ?{" "}
+          <Link className="text-green-400" href="/login">
+            Login
+          </Link>
+        </p>
       </Form>
     </div>
   );
