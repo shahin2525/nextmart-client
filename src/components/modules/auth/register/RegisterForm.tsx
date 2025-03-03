@@ -11,15 +11,30 @@ import {
 import { Input } from "@/components/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
-import { FieldValues, useForm } from "react-hook-form";
+import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { registrationSchema } from "./registerValidation";
+import { registerUser } from "@/services/auth/registration";
+import { toast } from "sonner";
 
 const RegisterForm = () => {
   const form = useForm({
     resolver: zodResolver(registrationSchema),
   });
-  const onSubmit = (data: FieldValues) => {
+  const password = form.watch("password");
+  const passwordConfirm = form.watch("passwordConfirm");
+  const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     console.log(data);
+    try {
+      const res = await registerUser(data);
+      console.log(res);
+      if (res.success) {
+        toast.success(res.message);
+      } else {
+        toast.error(res.message);
+      }
+    } catch (error: any) {
+      toast.error(error);
+    }
   };
   return (
     <div className="max-w-md flex-grow rounded-xl border-gray-400 border-2 p-5 w-full">
@@ -80,12 +95,19 @@ const RegisterForm = () => {
                   {/* Your form field */}
                   <Input type="password" {...field} value={field.value || ""} />
                 </FormControl>
-
-                <FormMessage />
+                {passwordConfirm && password !== passwordConfirm ? (
+                  <FormMessage>password does not match</FormMessage>
+                ) : (
+                  <FormMessage />
+                )}
               </FormItem>
             )}
           />
-          <Button className="my-2 w-full" type="submit">
+          <Button
+            disabled={passwordConfirm && password !== passwordConfirm}
+            className="my-2 w-full"
+            type="submit"
+          >
             Submit
           </Button>
         </form>
