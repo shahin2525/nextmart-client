@@ -85,7 +85,7 @@ const RegisterForm = () => {
               </FormItem>
             )}
           />
-          <Button className="my-2 w-full" variant="secondary" type="submit">
+          <Button className="my-2 w-full" type="submit">
             Submit
           </Button>
         </form>
