@@ -27,7 +27,10 @@ export const loginUser = async (data: FieldValues) => {
       },
       body: JSON.stringify(data),
     });
-    return res.json();
+
+    const result = await res.json();
+    console.log(result);
+    return result;
   } catch (error: any) {
     return Error(error);
   }
