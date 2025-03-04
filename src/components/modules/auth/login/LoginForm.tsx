@@ -29,11 +29,11 @@ const LoginForm = () => {
     // console.log(data);
     try {
       const res = await loginUser(data);
-      console.log(res);
-      if (res.success) {
-        toast.success(res.message);
+      // console.log(res);
+      if (res?.success) {
+        toast.success(res?.message);
       } else {
-        toast.error(res.message);
+        toast.error(res?.message);
       }
     } catch (error: any) {
       toast.error(error);

@@ -30,10 +30,10 @@ const RegisterForm = () => {
     try {
       const res = await registerUser(data);
       // console.log(res);
-      if (res.success) {
-        toast.success(res.message);
+      if (res?.success) {
+        toast.success(res?.message);
       } else {
-        toast.error(res.message);
+        toast.error(res?.message);
       }
     } catch (error: any) {
       toast.error(error);
