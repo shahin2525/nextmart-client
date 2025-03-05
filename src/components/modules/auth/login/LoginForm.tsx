@@ -16,7 +16,11 @@ import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 
 import { toast } from "sonner";
 import { loginSchema } from "./loginValidation";
-import { loginUser } from "@/services/auth/registration";
+import {
+  loginUser,
+  recaptchaTokenVerification,
+} from "@/services/auth/registration";
+import { useState } from "react";
 
 const LoginForm = () => {
   const form = useForm({
@@ -25,8 +29,16 @@ const LoginForm = () => {
   const {
     formState: { isSubmitting },
   } = form;
-  const handleRecaptcha = (data: string) => {
-    console.log(data);
+  const [recaptcha, setRecaptcha] = useState(false);
+  const handleRecaptcha = async (data: string | null) => {
+    try {
+      const res = await recaptchaTokenVerification(data!);
+      if (res?.success) {
+        setRecaptcha(true);
+      }
+    } catch (error: any) {
+      console.error(error);
+    }
   };
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
@@ -85,7 +97,11 @@ const LoginForm = () => {
               onChange={handleRecaptcha}
             />
           </div>
-          <Button className="my-2 w-full" type="submit">
+          <Button
+            disabled={recaptcha ? false : true}
+            className="my-2 w-full"
+            type="submit"
+          >
             {isSubmitting ? "Logging..." : "Login"}
           </Button>
         </form>
