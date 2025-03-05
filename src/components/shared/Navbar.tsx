@@ -1,3 +1,4 @@
+"use client";
 import Logo from "@/app/assets/svgs/Logo";
 import { Button } from "../ui/button";
 import { Heart, LogOut, ShoppingBag } from "lucide-react";
@@ -11,8 +12,12 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { logout } from "@/services/auth/registration";
 
 const Navbar = () => {
+  const handleLogout: any = () => {
+    logout();
+  };
   return (
     <header className="border-b w-full">
       <div className="container flex justify-between items-center mx-auto h-16 px-3">
@@ -58,7 +63,7 @@ const Navbar = () => {
               <DropdownMenuItem>Dashboard</DropdownMenuItem>
               <DropdownMenuItem>My Shop</DropdownMenuItem>
               <DropdownMenuSeparator />
-              <DropdownMenuItem>
+              <DropdownMenuItem onClick={handleLogout}>
                 <LogOut />
                 <span>Log Out</span>
               </DropdownMenuItem>

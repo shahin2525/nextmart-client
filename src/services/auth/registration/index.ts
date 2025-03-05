@@ -13,7 +13,12 @@ export const registerUser = async (data: FieldValues) => {
       },
       body: JSON.stringify(data),
     });
-    return res.json();
+    // return res.json();
+    const result = await res.json();
+    if (result.success) {
+      (await cookies()).set("accessToken", result?.data?.accessToken);
+    }
+    return result;
   } catch (error: any) {
     return Error(error);
   }
@@ -69,4 +74,9 @@ export const recaptchaTokenVerification = async (token: string) => {
   } catch (error: any) {
     return new Error(error);
   }
+};
+
+// logout
+export const logout = async () => {
+  (await cookies()).delete("accessToken");
 };
