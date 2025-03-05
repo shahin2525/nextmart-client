@@ -93,7 +93,7 @@ const LoginForm = () => {
           <div className="flex w-full mt-5">
             <ReCAPTCHA
               className="mx-auto"
-              sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}
+              sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY!}
               onChange={handleRecaptcha}
             />
           </div>
