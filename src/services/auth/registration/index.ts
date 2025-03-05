@@ -45,7 +45,9 @@ export const currentUser = async () => {
   const accessToken = (await cookies()).get("accessToken")?.value;
   let decodedData = null;
   if (accessToken) {
-    decodedData = jwtDecode(accessToken);
+    decodedData = await jwtDecode(accessToken);
+    return decodedData;
+  } else {
+    return null;
   }
-  return decodedData;
 };

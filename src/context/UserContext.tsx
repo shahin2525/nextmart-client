@@ -1,38 +1,52 @@
+"use client";
 import { currentUser } from "@/services/auth/registration";
+
 import { IUser } from "@/types";
-import React, {
+import {
   createContext,
   Dispatch,
   SetStateAction,
+  useContext,
   useEffect,
   useState,
 } from "react";
+
 interface IUserProviderValues {
   user: IUser | null;
   isLoading: boolean;
   setUser: (user: IUser | null) => void;
   setIsLoading: Dispatch<SetStateAction<boolean>>;
 }
+
 const UserContext = createContext<IUserProviderValues | undefined>(undefined);
 
 const UserProvider = ({ children }: { children: React.ReactNode }) => {
   const [user, setUser] = useState<IUser | null>(null);
-  const [loading, setLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
 
   const handleUser = async () => {
     const user = await currentUser();
     setUser(user);
-    setLoading(false);
+    setIsLoading(false);
   };
 
   useEffect(() => {
     handleUser();
-  }, [setLoading]);
+  }, [isLoading]);
 
   return (
-    <UserContext.Consumer value={{ user, loading, setLoading, setUser }}>
+    <UserContext.Provider value={{ user, setUser, isLoading, setIsLoading }}>
       {children}
-    </UserContext.Consumer>
+    </UserContext.Provider>
   );
 };
+
+export const useUser = () => {
+  const context = useContext(UserContext);
+  if (context == undefined) {
+    throw new Error("useUser must be used within the UserProvider context");
+  }
+  return context;
+};
+
 export default UserProvider;
