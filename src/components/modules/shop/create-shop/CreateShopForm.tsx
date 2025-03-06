@@ -13,9 +13,11 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { createShop } from "@/services/shop";
 import { useState } from "react";
 import { FieldValues, SubmitHandler } from "react-hook-form";
 import { useForm } from "react-hook-form";
+import { toast } from "sonner";
 const CreateShopForm = () => {
   const [imageFiles, setImageFiles] = useState<File[] | []>([]);
   const [imagePreview, setImagePreview] = useState<string[] | []>([]);
@@ -38,7 +40,33 @@ const CreateShopForm = () => {
     };
     console.log(modifiedData);
 
+    // try {
+
+    //   const formData = new FormData();
+    //   console.log(formData);
+    //   formData.append("data", JSON.stringify(modifiedData));
+    //   formData.append("logo", imageFiles[0] as File);
+    //   console.log("formData", formData);
+    //   const res = await createShop(formData);
+    //   console.log(res, "res");
+    //   if (res.success) {
+    //     toast.success(res?.message);
+    //   }
+    // } catch (err: any) {
+    //   console.error(err);
+    // }
     try {
+      const formData = new FormData();
+      formData.append("data", JSON.stringify(modifiedData));
+      formData.append("logo", imageFiles[0] as File);
+      console.log(formData);
+      const res = await createShop(formData);
+
+      console.log(res);
+
+      if (res.success) {
+        toast.success(res.message);
+      }
     } catch (err: any) {
       console.error(err);
     }

@@ -12,7 +12,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { logout } from "@/services/auth/registration";
+import { logout } from "@/services/auth";
 
 import { useUser } from "@/context/UserContext";
 

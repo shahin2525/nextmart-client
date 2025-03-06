@@ -1,5 +1,5 @@
 "use client";
-import { currentUser } from "@/services/auth/registration";
+import { currentUser } from "@/services/auth";
 
 import { IUser } from "@/types";
 import {

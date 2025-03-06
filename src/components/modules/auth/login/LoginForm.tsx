@@ -16,10 +16,7 @@ import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 
 import { toast } from "sonner";
 import { loginSchema } from "./loginValidation";
-import {
-  loginUser,
-  recaptchaTokenVerification,
-} from "@/services/auth/registration";
+import { loginUser, recaptchaTokenVerification } from "@/services/auth";
 import { useState } from "react";
 
 const LoginForm = () => {

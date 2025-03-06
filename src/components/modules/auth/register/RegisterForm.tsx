@@ -13,7 +13,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { registrationSchema } from "./registerValidation";
-import { registerUser } from "@/services/auth/registration";
+import { registerUser } from "@/services/auth";
 import { toast } from "sonner";
 
 const RegisterForm = () => {
