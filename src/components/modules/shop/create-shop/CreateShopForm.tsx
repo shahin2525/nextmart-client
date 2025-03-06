@@ -26,7 +26,22 @@ const CreateShopForm = () => {
   } = form;
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
-    console.log(data);
+    const servicesOffered = data?.servicesOffered
+      .split(",")
+      .map((service: string) => service.trim())
+      .filter((service: string) => service !== "");
+
+    const modifiedData = {
+      ...data,
+      servicesOffered: servicesOffered,
+      establishedYear: Number(data?.establishedYear),
+    };
+    console.log(modifiedData);
+
+    try {
+    } catch (err: any) {
+      console.error(err);
+    }
   };
   return (
     <div className="border-2 border-gray-300 rounded-xl flex-grow max-w-2xl p-5 my-5">
