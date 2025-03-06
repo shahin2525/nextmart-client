@@ -2,6 +2,7 @@
 import Logo from "@/app/assets/svgs/Logo";
 import { Button } from "@/components/ui/button";
 import NMImageUploader from "@/components/ui/core/NMImageUploader";
+import ImagePreviewer from "@/components/ui/core/NMImageUploader/ImagePreviewer";
 import {
   Form,
   FormControl,
@@ -17,6 +18,7 @@ import { FieldValues, SubmitHandler } from "react-hook-form";
 import { useForm } from "react-hook-form";
 const CreateShopForm = () => {
   const [imageFiles, setImageFiles] = useState<File[] | []>([]);
+  const [imagePreview, setImagePreview] = useState<string[] | []>([]);
   const form = useForm();
 
   const {
@@ -195,12 +197,12 @@ const CreateShopForm = () => {
                 )}
               />
             </div>
-            <NMImageUploader
+            {/* <NMImageUploader
               imageFiles={imageFiles}
               setImageFiles={setImageFiles}
-            />
+            /> */}
 
-            {/* {imagePreview.length > 0 ? (
+            {imagePreview.length > 0 ? (
               <ImagePreviewer
                 setImageFiles={setImageFiles}
                 imagePreview={imagePreview}
@@ -215,7 +217,7 @@ const CreateShopForm = () => {
                   label="Upload Logo"
                 />
               </div>
-            )} */}
+            )}
           </div>
 
           <Button type="submit" className="mt-5 w-full">
