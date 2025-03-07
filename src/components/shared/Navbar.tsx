@@ -15,12 +15,19 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { logout } from "@/services/auth";
 
 import { useUser } from "@/context/UserContext";
+import { privateRoutes } from "@/constants";
+import { usePathname, useRouter } from "next/navigation";
 
 const Navbar = () => {
+  const pathName = usePathname();
+  const router = useRouter();
   const { user, setIsLoading } = useUser();
   const handleLogout: any = () => {
     logout();
     setIsLoading(true);
+    if (privateRoutes.some((route) => pathName.match(route))) {
+      router.push("/");
+    }
   };
   return (
     <header className="border-b w-full">
