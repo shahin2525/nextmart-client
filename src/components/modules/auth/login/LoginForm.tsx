@@ -18,8 +18,12 @@ import { toast } from "sonner";
 import { loginSchema } from "./loginValidation";
 import { loginUser, recaptchaTokenVerification } from "@/services/auth";
 import { useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 
 const LoginForm = () => {
+  const searchParams = useSearchParams();
+  const redirect = searchParams.get("redirectPath");
+  const router = useRouter();
   const form = useForm({
     resolver: zodResolver(loginSchema),
   });
@@ -45,6 +49,11 @@ const LoginForm = () => {
       // console.log(res);
       if (res?.success) {
         toast.success(res?.message);
+        if (redirect) {
+          router.push(redirect);
+        } else {
+          router.push("/profile");
+        }
       } else {
         toast.error(res?.message);
       }
