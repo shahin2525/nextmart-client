@@ -25,41 +25,80 @@ import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "sonner";
 
 const CreateCategoryModal = () => {
+  // const [imageFiles, setImageFiles] = useState<File[] | []>([]);
+  // const [imagePreview, setImagePreview] = useState<string[] | []>([]);
+  // const form = useForm();
+  // const {
+  //   formState: { isSubmitting },
+  // } = form;
+
   const [imageFiles, setImageFiles] = useState<File[] | []>([]);
   const [imagePreview, setImagePreview] = useState<string[] | []>([]);
+
   const form = useForm();
   const {
     formState: { isSubmitting },
   } = form;
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
-    console.log(data);
     try {
       const formData = new FormData();
-      formData.append("icon", imageFiles[0] as File);
       formData.append("data", JSON.stringify(data));
+      formData.append("icon", imageFiles[0] as File);
+
       const res = await createCategory(formData);
-      if (res.success) {
+      console.log(res);
+
+      if (res?.success) {
         toast.success(res?.message);
       } else {
         toast.error(res?.message);
       }
-      // const res = await loginUser(data);
-      // console.log(res);
-      // if (res?.success) {
-      //   toast.success(res?.message);
-      //   if (redirect) {
-      //     router.push(redirect);
-      //   } else {
-      //     router.push("/profile");
-      //   }
-      // } else {
-      // toast.error(res?.message);
-      // }
-    } catch (error: any) {
-      toast.error(error);
+    } catch (err: any) {
+      console.error(err);
     }
   };
+
+  //
+
+  // const onSubmit: SubmitHandler<FieldValues> = async (data) => {
+  //   console.log(data);
+  //   try {
+  //     const formData = new FormData();
+  //     formData.append("data", JSON.stringify(data));
+  //     formData.append("icon", imageFiles[0] as File);
+
+  //     const res = await createCategory(formData);
+  //     console.log(res);
+  //     if (res?.success) {
+  //       toast.success(res?.message);
+  //     } else {
+  //       toast.error(res?.message);
+  //     }
+  //   } catch (error: any) {
+  //     console.error(error);
+  //   }
+  // };
+
+  // const onSubmit: SubmitHandler<FieldValues> = async (data) => {
+  //   console.log(data);
+  //   try {
+  //     const formData = new FormData();
+  //     formData.append("data", JSON.stringify(data));
+  //     formData.append("icon", imageFiles[0] as File);
+
+  //     const res = await createCategory(formData);
+  //     console.log(res);
+
+  //     if (res?.success) {
+  //       toast.success(res?.message);
+  //     } else {
+  //       toast.error(res?.message);
+  //     }
+  //   } catch (err: any) {
+  //     console.error(err);
+  //   }
+  // };
   return (
     <Dialog>
       <DialogTrigger asChild>
