@@ -102,7 +102,7 @@ const CreateCategoryModal = () => {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant="outline">Create Category modal</Button>
+        <Button variant="outline">Create Category modal 2</Button>
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
