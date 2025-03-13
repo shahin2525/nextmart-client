@@ -4,10 +4,11 @@ import React from "react";
 
 const ProductCategory = async () => {
   const allCategory = await getAllCategory();
-  console.log(allCategory);
+  const { data } = allCategory;
+
   return (
     <div>
-      <ManageCategories />
+      <ManageCategories categories={data} />
     </div>
   );
 };
