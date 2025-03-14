@@ -5,11 +5,29 @@ import { ColumnDef } from "@tanstack/react-table";
 import Image from "next/image";
 import { NMTable } from "@/components/ui/core/NMTable";
 import { Trash } from "lucide-react";
+import { AlertDialogDemo } from "@/components/ui/core/NMModal/DeleteCornfirmationModal";
+import { deleteCategory } from "@/services/category";
+import { toast } from "sonner";
 
 const ManageCategories = ({ categories }: { categories: ICategory[] }) => {
   // console.log(categories);
+  // const handleDelete = async (data: ICategory) => {
+  //   console.log(data);
+  // };
   const handleDelete = async (data: ICategory) => {
-    console.log(data);
+    try {
+      const res = await deleteCategory(data._id);
+      console.log(res);
+      if (res?.success) {
+        toast.success(res?.message);
+      } else {
+        toast.error(res?.message);
+      }
+      // Optionally, you can refresh the categories list or show a success message
+    } catch (error) {
+      console.error("Failed to delete category:", error);
+      // Optionally, show an error message
+    }
   };
   const columns: ColumnDef<ICategory>[] = [
     {
@@ -49,15 +67,26 @@ const ManageCategories = ({ categories }: { categories: ICategory[] }) => {
       accessorKey: "action",
       header: () => <div>Action</div>,
       cell: ({ row }) => (
-        <button
-          className="text-red-500"
-          title="Delete"
-          onClick={() => handleDelete(row.original)}
-        >
-          <Trash className="w-5 h-5" />
-        </button>
+        <AlertDialogDemo onConfirm={() => handleDelete(row.original)}>
+          <button className="text-red-500" title="Delete">
+            <Trash className="w-5 h-5" />
+          </button>
+        </AlertDialogDemo>
       ),
     },
+    // {
+    //   accessorKey: "action",
+    //   header: () => <div>Action</div>,
+    //   cell: ({ row }) => (
+    //     <button
+    //       className="text-red-500"
+    //       title="Delete"
+    //       onClick={() => handleDelete(row.original)}
+    //     >
+    //       <Trash className="w-5 h-5" />
+    //     </button>
+    //   ),
+    // },
   ];
   return (
     <div>
