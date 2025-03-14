@@ -8,6 +8,9 @@ import { deleteBrand } from "@/services/brand";
 import { toast } from "sonner";
 import { useState } from "react";
 import { NMTable } from "@/components/ui/core/NMTable";
+import DeleteConfirmModal from "@/components/ui/core/NMModal2/DeleteConfirmationModal2";
+
+// import DeleteConfirmationModal from "@/components/ui/core/NMModal2/DeleteConfirmationModal2";
 
 const ManageBrands = ({ brands }: { brands: IBrand[] }) => {
   const [isModalOpen, setModalOpen] = useState(false);
@@ -15,7 +18,6 @@ const ManageBrands = ({ brands }: { brands: IBrand[] }) => {
   const [selectedItem, setSelectedItem] = useState<string | null>(null);
 
   const handleDelete = (data: IBrand) => {
-    console.log(data);
     setSelectedId(data?._id);
     setSelectedItem(data?.name);
     setModalOpen(true);
@@ -81,7 +83,7 @@ const ManageBrands = ({ brands }: { brands: IBrand[] }) => {
           title="Delete"
           onClick={() => handleDelete(row.original)}
         >
-          <Trash className="w-5 h-5" />
+          <Trash className="w-5 h-5 cursor-pointer" />
         </button>
       ),
     },
@@ -94,6 +96,12 @@ const ManageBrands = ({ brands }: { brands: IBrand[] }) => {
         <CreateBrandModal />
       </div>
       <NMTable columns={columns} data={brands || []} />
+      <DeleteConfirmModal
+        name={selectedItem}
+        isOpen={isModalOpen}
+        onOpenChange={setModalOpen}
+        onConfirm={handleDeleteConfirm}
+      />
     </div>
   );
 };
