@@ -75,14 +75,22 @@ export default function AddProductsForm() {
     appendColor({ value: "" });
   };
 
-  const { append: appendFeatures, fields: featureFields } = useFieldArray({
+  const { append: featureAppend, fields: featureFields } = useFieldArray({
     control: form.control,
     name: "keyFeatures",
   });
-
   const addFeatures = () => {
-    appendFeatures({ value: "" });
+    featureAppend([{ value: "" }]);
   };
+
+  // const { append: appendFeatures, fields: featureFields } = useFieldArray({
+  //   control: form.control,
+  //   name: "keyFeatures",
+  // });
+
+  // const addFeatures = () => {
+  //   appendFeatures({ value: "" });
+  // };
 
   const { append: appendSpec, fields: specFields } = useFieldArray({
     control: form.control,
@@ -110,47 +118,47 @@ export default function AddProductsForm() {
   }, []);
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
-    const availableColors = data.availableColors.map(
-      (color: { value: string }) => color.value
-    );
+    console.log(data);
+    // const availableColors = data.availableColors.map(
+    //   (color: { value: string }) => color.value
+    // );
 
-    const keyFeatures = data.keyFeatures.map(
-      (feature: { value: string }) => feature.value
-    );
+    // const keyFeatures = data.keyFeatures.map(
+    //   (feature: { value: string }) => feature.value
+    // );
 
-    const specification: { [key: string]: string } = {};
-    data.specification.forEach(
-      (item: { key: string; value: string }) =>
-        (specification[item.key] = item.value)
-    );
+    // const specification: { [key: string]: string } = {};
+    // data.specification.forEach(
+    //   (item: { key: string; value: string }) =>
+    //     (specification[item.key] = item.value)
+    // );
 
     // console.log({ availableColors, keyFeatures, specification });
 
-    const modifiedData = {
-      ...data,
-      availableColors,
-      keyFeatures,
-      specification,
-      price: parseFloat(data.price),
-      stock: parseInt(data.stock),
-      weight: parseFloat(data.stock),
-    };
+    // const modifiedData = {
+    //   ...data,
+    //   availableColors,
+    //   // keyFeatures,
+    //   specification,
+    //   price: parseFloat(data.price),
+    //   stock: parseInt(data.stock),
+    //   weight: parseFloat(data.stock),
+    // };
 
-    const formData = new FormData();
-    formData.append("data", JSON.stringify(modifiedData));
+    // const formData = new FormData();
+    // formData.append("data", JSON.stringify(modifiedData));
 
-    for (const file of imageFiles) {
-      formData.append("images", file);
-    }
+    // for (const file of imageFiles) {
+    //   formData.append("images", file);
+    // }
     try {
-      const res = await createProduct(formData);
-
-      if (res.success) {
-        toast.success(res.message);
-        router.push("/user/shop/products");
-      } else {
-        toast.error(res.message);
-      }
+      // const res = await createProduct(formData);
+      // if (res.success) {
+      //   toast.success(res.message);
+      //   router.push("/user/shop/products");
+      // } else {
+      //   toast.error(res.message);
+      // }
     } catch (err: any) {
       console.error(err);
     }
@@ -369,8 +377,8 @@ export default function AddProductsForm() {
             </div>
 
             <div className="my-5">
-              {featureFields.map((featureField, index) => (
-                <div key={featureField.id}>
+              {featureFields.map((field, index) => (
+                <div key={field.id}>
                   <FormField
                     control={form.control}
                     name={`keyFeatures.${index}.value`}
