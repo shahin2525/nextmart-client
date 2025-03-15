@@ -80,7 +80,7 @@ export default function AddProductsForm() {
     name: "keyFeatures",
   });
   const addFeatures = () => {
-    featureAppend([{ value: "" }]);
+    featureAppend({ value: "" });
   };
 
   // const { append: appendFeatures, fields: featureFields } = useFieldArray({
@@ -92,16 +92,23 @@ export default function AddProductsForm() {
   //   appendFeatures({ value: "" });
   // };
 
-  const { append: appendSpec, fields: specFields } = useFieldArray({
+  // const { append: appendSpec, fields: specFields } = useFieldArray({
+  //   control: form.control,
+  //   name: "specification",
+  // });
+
+  // const addSpec = () => {
+  //   appendSpec({ key: "", value: "" });
+  // };
+
+  // console.log(specFields);
+  const { append: specAppend, fields: specFields } = useFieldArray({
     control: form.control,
     name: "specification",
   });
-
   const addSpec = () => {
-    appendSpec({ key: "", value: "" });
+    specAppend({ key: "", value: "" });
   };
-
-  // console.log(specFields);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -433,7 +440,7 @@ export default function AddProductsForm() {
                   name={`specification.${index}.value`}
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Feature Description {index + 1}</FormLabel>
+                      <FormLabel>Feature Description {index+1} </FormLabel>
                       <FormControl>
                         <Input {...field} value={field.value || ""} />
                       </FormControl>
