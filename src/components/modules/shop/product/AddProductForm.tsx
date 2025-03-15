@@ -116,13 +116,26 @@ export default function AddProductsForm() {
         getAllCategory(),
         getAllBrand(),
       ]);
-
       setCategories(categoriesData?.data);
       setBrands(brandsData?.data);
     };
 
     fetchData();
   }, []);
+
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     const [categoriesData, brandsData] = await Promise.all([
+  //       getAllCategory(),
+  //       getAllBrand(),
+  //     ]);
+
+  //     setCategories(categoriesData?.data);
+  //     setBrands(brandsData?.data);
+  //   };
+
+  //   fetchData();
+  // }, []);
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     const availableColors = data?.availableColors.map(
@@ -224,7 +237,7 @@ export default function AddProductsForm() {
               )}
             />
 
-            <FormField
+            {/* <FormField
               control={form.control}
               name="category"
               render={({ field }) => (
@@ -265,6 +278,62 @@ export default function AddProductsForm() {
                     <FormControl>
                       <SelectTrigger>
                         <SelectValue placeholder="Select Product Brand" />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      {brands.map((brand) => (
+                        <SelectItem key={brand?._id} value={brand?._id}>
+                          {brand?.name}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+
+                  <FormMessage />
+                </FormItem>
+              )}
+            /> */}
+            <FormField
+              control={form.control}
+              name="category"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Category</FormLabel>
+                  <Select
+                    onValueChange={field.onChange}
+                    defaultValue={field.value}
+                  >
+                    <FormControl>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select Category" />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      {categories.map((category) => (
+                        <SelectItem key={category?._id} value={category?._id}>
+                          {category?.name}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="brand"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Brand</FormLabel>
+                  <Select
+                    onValueChange={field.onChange}
+                    defaultValue={field.value}
+                  >
+                    <FormControl>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select Brand" />
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
