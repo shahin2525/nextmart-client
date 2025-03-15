@@ -150,22 +150,22 @@ export default function AddProductsForm() {
       (item: { key: string; value: string }) =>
         (specification[item.key] = item.value)
     );
-    console.log(availableColors, keyFeatures, specification);
-    // const availableColors = data.availableColors.map(
-    //   (color: { value: string }) => color.value
-    // );
 
-    // const keyFeatures = data.keyFeatures.map(
-    //   (feature: { value: string }) => feature.value
-    // );
+    const modifiedData = {
+      ...data,
+      availableColors,
+      keyFeatures,
+      specification,
+      price: parseFloat(data?.price),
+      stock: parseInt(data?.stock),
+      weight: parseFloat(data?.weight),
+    };
 
-    // const specification: { [key: string]: string } = {};
-    // data.specification.forEach(
-    //   (item: { key: string; value: string }) =>
-    //     (specification[item.key] = item.value)
-    // );
-
-    // console.log({ availableColors, keyFeatures, specification });
+    const formData = new FormData();
+    formData.append("data", JSON.stringify(modifiedData));
+    for (const file of imageFiles) {
+      formData.append("images", file);
+    }
 
     // const modifiedData = {
     //   ...data,
@@ -191,6 +191,14 @@ export default function AddProductsForm() {
       // } else {
       //   toast.error(res.message);
       // }
+      const res = await createProduct(formData);
+      console.log(res);
+      if (res?.success) {
+        toast.success(res?.message);
+        router.push("/user/shop/products");
+      } else {
+        toast.error(res?.message);
+      }
     } catch (err: any) {
       console.error(err);
     }
