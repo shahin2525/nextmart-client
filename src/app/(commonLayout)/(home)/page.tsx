@@ -1,5 +1,6 @@
 "use client";
 
+import HeroSection from "@/components/modules/home/heroSection";
 import { useUser } from "@/context/UserContext";
 
 const HomePage = () => {
@@ -7,7 +8,7 @@ const HomePage = () => {
   // console.log(user);
   return (
     <div>
-      <h1>welcome to common layout</h1>
+      <HeroSection />
     </div>
   );
 };

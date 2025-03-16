@@ -36,7 +36,7 @@ import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { getAllCategory } from "@/services/category";
 import { getAllBrand } from "@/services/brand";
-import Logo from "@/app/assets/svgs/Logo";
+import Logo from "@/assets/svgs/Logo";
 import { updateProduct } from "@/services/product";
 
 export default function UpdateProductForm({ product }: { product: IProduct }) {

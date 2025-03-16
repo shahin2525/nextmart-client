@@ -37,7 +37,7 @@ import { toast } from "sonner";
 import { getAllCategory } from "@/services/category";
 import { getAllBrand } from "@/services/brand";
 import { createProduct } from "@/services/product";
-import Logo from "@/app/assets/svgs/Logo";
+import Logo from "@/assets/svgs/Logo";
 
 export default function AddProductsForm() {
   const [imageFiles, setImageFiles] = useState<File[] | []>([]);
