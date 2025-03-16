@@ -1,10 +1,9 @@
 "use client";
 
 import HeroSection from "@/components/modules/home/heroSection";
-import { useUser } from "@/context/UserContext";
 
 const HomePage = () => {
-  const user = useUser();
+  // const user = useUser();
   // console.log(user);
   return (
     <div>
