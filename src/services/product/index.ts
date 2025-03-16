@@ -30,7 +30,7 @@ export const getAllProduct = async () => {
     return Error(error);
   }
 };
-export const deleteBrand = async (id: string): Promise<any> => {
+export const deleteProduct = async (id: string): Promise<any> => {
   try {
     const res = await fetch(
       `${process.env.NEXT_PUBLIC_BASE_API}/product/${id}`,
@@ -41,8 +41,26 @@ export const deleteBrand = async (id: string): Promise<any> => {
         },
       }
     );
-    console.log(res.json);
+    // console.log(res.json);
     revalidateTag("Product");
+    return res.json();
+  } catch (error: any) {
+    return Error(error);
+  }
+};
+
+// get single product
+export const getSingleProduct = async (id: string) => {
+  try {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_API}/product/${id}`,
+      {
+        next: {
+          tags: ["Product"],
+        },
+      }
+    );
+
     return res.json();
   } catch (error: any) {
     return Error(error);

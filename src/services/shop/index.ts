@@ -9,11 +9,6 @@ export const createShop = async (data: FormData) => {
       Authorization: (await cookies()).get("accessToken")!.value,
     },
     body: data,
-    // method: "POST",
-    // headers: {
-    //   Authorization: (await cookies()).get("accessToken")!.value,
-    // },
-    // body: data,
   });
 
   return res.json();
