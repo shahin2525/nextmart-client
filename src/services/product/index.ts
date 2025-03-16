@@ -66,3 +66,48 @@ export const getSingleProduct = async (id: string) => {
     return Error(error);
   }
 };
+
+// update product
+// export const updateProduct = async (data: FormData, id: string) => {
+//   try {
+//     const res = await fetch(
+//       `${process.env.NEXT_PUBLIC_BASE_API}/product/${id}`,
+//       {
+//         method: "PATCH",
+//         headers: {
+//           Authorization: (await cookies()).get("accessToken")!.value,
+//         },
+//         body: data,
+//       }
+//     );
+//     revalidateTag("Product");
+//     return res.json();
+//   } catch (err: any) {
+//     return Error(err);
+//   }
+// };
+
+//
+
+export const updateProduct = async (
+  productData: FormData,
+  productId: string
+): Promise<any> => {
+  console.log(productId);
+  try {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_API}/product/${productId}`,
+      {
+        method: "PATCH",
+        body: productData,
+        headers: {
+          Authorization: (await cookies()).get("accessToken")!.value,
+        },
+      }
+    );
+    revalidateTag("Product");
+    return res.json();
+  } catch (error: any) {
+    return Error(error);
+  }
+};
