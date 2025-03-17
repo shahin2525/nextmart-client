@@ -1,4 +1,5 @@
 import Category from "@/components/modules/home/category";
+import FeaturedProducts from "@/components/modules/home/featureProduct";
 import HeroSection from "@/components/modules/home/heroSection";
 
 const HomePage = () => {
@@ -8,6 +9,7 @@ const HomePage = () => {
     <div>
       <HeroSection />
       <Category />
+      <FeaturedProducts />
     </div>
   );
 };
