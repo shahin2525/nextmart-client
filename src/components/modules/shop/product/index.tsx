@@ -8,8 +8,12 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
+import { useState } from "react";
+import DiscountModal from "./DiscountModal";
 
 const ManageProducts = ({ products }: { products: IProduct[] }) => {
+  const [productIds, setProductIds] = useState<string[] | []>([]);
+  // console.log(productIds);
   const router = useRouter();
 
   const handleView = (product: IProduct) => {
@@ -36,7 +40,14 @@ const ManageProducts = ({ products }: { products: IProduct[] }) => {
       cell: ({ row }) => (
         <Checkbox
           checked={row.getIsSelected()}
-          onCheckedChange={(value) => row.toggleSelected(!!value)}
+          onCheckedChange={(value) => {
+            if (value) {
+              setProductIds((prev) => [...prev, row.original._id]);
+            } else {
+              setProductIds(productIds.filter((id) => id !== row.original._id));
+            }
+            row.toggleSelected(!!value);
+          }}
           aria-label="Select row"
         />
       ),
@@ -136,6 +147,7 @@ const ManageProducts = ({ products }: { products: IProduct[] }) => {
           >
             Add Product <Plus />
           </Button>
+          <DiscountModal ids={productIds} />
         </div>
       </div>
       <NMTable columns={columns} data={products || []} />
