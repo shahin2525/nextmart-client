@@ -38,3 +38,16 @@ export const createFlashSale = async (productData: any): Promise<any> => {
     return Error(error);
   }
 };
+
+// flashSale
+export const getAllFlashSale = async () => {
+  try {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/flash-sale`, {
+      next: { tags: ["Product"] },
+    });
+
+    return res.json();
+  } catch (error: any) {
+    return Error(error);
+  }
+};
