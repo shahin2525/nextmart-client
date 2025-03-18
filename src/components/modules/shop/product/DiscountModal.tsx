@@ -1,4 +1,3 @@
-"use client";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -18,11 +17,16 @@ import {
 } from "@/components/ui/form";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 
+import { toast } from "sonner";
+import { Dispatch, SetStateAction } from "react";
+import { createFlashSale } from "@/services/flashSale";
+
 // import { createBrand } from "@/services/Brand";
 type TDiscountModalProps = {
   ids: string[];
+  setProductIds: Dispatch<SetStateAction<[] | string[]>>;
 };
-const DiscountModal = ({ ids }: TDiscountModalProps) => {
+const DiscountModal = ({ ids, setProductIds }: TDiscountModalProps) => {
   const form = useForm();
 
   const {
@@ -34,14 +38,16 @@ const DiscountModal = ({ ids }: TDiscountModalProps) => {
       products: [...ids],
       discountPercentage: data?.discountPercentage,
     };
-    console.log(modifiedData);
+
     try {
-      //   const res = await createBrand();
-      //   if (res.success) {
-      //     toast.success(res.message);
-      //   } else {
-      //     toast.error(res.message);
-      //   }
+      const res = await createFlashSale(modifiedData);
+      console.log(res);
+      if (res.success) {
+        toast.success(res.message);
+        setProductIds([]);
+      } else {
+        toast.error(res.message);
+      }
     } catch (err: any) {
       console.error(err);
     }

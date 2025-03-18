@@ -147,7 +147,7 @@ const ManageProducts = ({ products }: { products: IProduct[] }) => {
           >
             Add Product <Plus />
           </Button>
-          <DiscountModal ids={productIds} />
+          <DiscountModal ids={productIds} setProductIds={setProductIds} />
         </div>
       </div>
       <NMTable columns={columns} data={products || []} />
