@@ -11,7 +11,7 @@ const FilterSidebar = () => {
   const [price, setPrice] = useState([50]);
 
   return (
-    <aside className="w-64 p-4 border-r border-gray-300 space-y-6">
+    <aside className="w-64 p-4 border-r border-gray-300 space-y-6 bg-slate-300">
       {/* Filter by Price */}
       <div>
         <h3 className="font-semibold mb-2">Filter By Price</h3>

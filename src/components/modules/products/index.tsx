@@ -5,7 +5,7 @@ import ProductCard from "@/components/ui/core/ProductCard";
 
 const AllProducts = ({ products }: { products: IProduct[] }) => {
   return (
-    <div className="flex gap-8 my-5">
+    <div className="flex gap-8 my-5 bg-slate-100">
       <FilterSidebar />
       <div>
         <div className="grid grid-cols-3 gap-4 ">
