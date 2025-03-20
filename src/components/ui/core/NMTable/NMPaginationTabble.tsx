@@ -1,22 +1,26 @@
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { Button } from "../../button";
 import { useState } from "react";
+import { usePathname, useRouter } from "next/navigation";
 
-const NMPaginationTable = () => {
+const NMPaginationTable = ({ totalPage }: { totalPage: number }) => {
   const [currentPage, setCurrentPage] = useState(1);
+  const router = useRouter();
+  const pathName = usePathname();
   // console.log(currentPage);
   const handlePrev = () => {
     if (currentPage > 1) {
       setCurrentPage(currentPage - 1);
+      router.push(`${pathName}?page=${currentPage - 1}`);
     }
   };
   const handleNext = () => {
     if (currentPage < 10) {
       setCurrentPage(currentPage + 1);
+      router.push(`${pathName}?page=${currentPage + 1}`);
     }
   };
 
-  const totalPage = 10;
   return (
     <div className="flex justify-center gap-2 my-5">
       <Button
@@ -30,7 +34,10 @@ const NMPaginationTable = () => {
       </Button>
       {[...Array(totalPage)].map((id, idx) => (
         <Button
-          onClick={() => setCurrentPage(idx + 1)}
+          onClick={() => {
+            setCurrentPage(idx + 1);
+            router.push(`${pathName}?page=${idx + 1}`);
+          }}
           key={idx}
           variant={currentPage === idx + 1 ? "default" : "outline"}
           size="sm"

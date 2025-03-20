@@ -1,7 +1,7 @@
 "use client";
 
 import { NMTable } from "@/components/ui/core/NMTable/index";
-import { IProduct } from "@/types";
+import { IMeta, IProduct } from "@/types";
 import { ColumnDef } from "@tanstack/react-table";
 import { Edit, Eye, Plus, Trash } from "lucide-react";
 import Image from "next/image";
@@ -14,7 +14,13 @@ import NMPaginationTable from "@/components/ui/core/NMTable/NMPaginationTabble";
 
 // import NMPaginationTable from "@/components/ui/core/NMTable/NMPaginationTabble";
 
-const ManageProducts = ({ products }: { products: IProduct[] }) => {
+const ManageProducts = ({
+  products,
+  meta,
+}: {
+  products: IProduct[];
+  meta: IMeta;
+}) => {
   const [productIds, setProductIds] = useState<string[] | []>([]);
   // console.log(productIds);
   const router = useRouter();
@@ -155,7 +161,7 @@ const ManageProducts = ({ products }: { products: IProduct[] }) => {
       </div>
       <NMTable columns={columns} data={products || []} />
       {/* <NMPaginationTable /> */}
-      <NMPaginationTable />
+      <NMPaginationTable totalPage={meta?.totalPage} />
     </div>
   );
 };
