@@ -1,8 +1,15 @@
 import { configureStore } from "@reduxjs/toolkit";
+import cartSlice from "./feature/slice";
+
+//! We will not do this
+//! This is a global variable so we will avoid this
+// const store = configureStore({});
 
 export const makeStore = () => {
   return configureStore({
-    reducer: {},
+    reducer: {
+      cart: cartSlice,
+    },
   });
 };
 
