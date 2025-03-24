@@ -5,7 +5,7 @@ import NMContainer from "@/components/ui/core/NMContainer";
 
 const CartPage = () => {
   return (
-    <NMContainer>
+    <NMContainer className="bg-slate-100">
       <AllProductsBanner title="Cart page" path="home cart page" />
       <div className="grid grid-cols-12 gap-8 my-5">
         <CartProducts />
