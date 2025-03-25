@@ -1,5 +1,11 @@
 import { Button } from "@/components/ui/button";
-import { TIProductQuantity } from "@/redux/feature/slice";
+import {
+  decrementProduct,
+  incrementProduct,
+  removeProduct,
+  TIProductQuantity,
+} from "@/redux/feature/slice";
+import { useAppDispatch } from "@/redux/hooks";
 
 import { Minus, Plus, Trash } from "lucide-react";
 import Image from "next/image";
@@ -9,6 +15,16 @@ export default function CartProductCard({
 }: {
   product: TIProductQuantity;
 }) {
+  const dispatch = useAppDispatch();
+  const handleIncrementProduct = (id: string) => {
+    dispatch(incrementProduct(id));
+  };
+  const handleDecrementProduct = (id: string) => {
+    dispatch(decrementProduct(id));
+  };
+  const handleRemoveProduct = (id: string) => {
+    dispatch(removeProduct(id));
+  };
   return (
     <div className="bg-white brightness-105 rounded-lg flex p-5 gap-5">
       <div className="h-full w-32 rounded-md overflow-hidden">
@@ -40,16 +56,28 @@ export default function CartProductCard({
           </h2>
           <div className="flex items-center gap-2">
             <p className="text-gray-500 font-semibold">Quantity</p>
-            <Button variant="outline" className="size-8 rounded-sm">
+            <Button
+              onClick={() => handleDecrementProduct(product?._id)}
+              variant="outline"
+              className="size-8 rounded-sm"
+            >
               <Minus />
             </Button>
             <p className="font-semibold text-xl p-2">
               {product?.orderQuantity}
             </p>
-            <Button variant="outline" className="size-8 rounded-sm">
+            <Button
+              onClick={() => handleIncrementProduct(product?._id)}
+              variant="outline"
+              className="size-8 rounded-sm"
+            >
               <Plus />
             </Button>
-            <Button variant="outline" className="size-8 rounded-sm">
+            <Button
+              onClick={() => handleRemoveProduct(product?._id)}
+              variant="outline"
+              className="size-8 rounded-sm"
+            >
               <Trash className="text-red-500/50" />
             </Button>
           </div>

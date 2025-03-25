@@ -21,11 +21,9 @@ const FeaturedProducts = async () => {
         </div>
 
         <div className="grid grid-cols-5 gap-4 my-5">
-          {Array(5)
-            .fill(products?.[0])
-            .map((product: IProduct, idx: number) => (
-              <ProductCard key={idx} product={product} />
-            ))}
+          {products?.map((product: IProduct, idx: number) => (
+            <ProductCard key={idx} product={product} />
+          ))}
         </div>
       </div>
     </div>
