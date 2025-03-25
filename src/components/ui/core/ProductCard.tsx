@@ -8,6 +8,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { addProduct } from "@/redux/feature/slice";
 // import { addProduct } from "@/redux/feature/slice";
 import { useAppDispatch } from "@/redux/hooks";
 
@@ -19,7 +20,7 @@ import Link from "next/link";
 const ProductCard = ({ product }: { product: IProduct }) => {
   const dispatch = useAppDispatch();
   const handleCart = (product: IProduct) => {
-    // dispatch(addProduct(product));
+    dispatch(addProduct(product));
   };
   return (
     <Card className="p-3">
