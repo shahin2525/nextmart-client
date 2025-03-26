@@ -1,11 +1,13 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
+import { subTotalSelector } from "@/redux/feature/slice";
+import { useAppSelector } from "@/redux/hooks";
 
 // import { useAppSelector } from "@/redux/hooks";
 
 export default function PaymentDetails() {
-  //   const subTotal = useAppSelector(subTotalSelector);
+  const subTotal = useAppSelector(subTotalSelector);
 
   //   const handleOrder = async () => {
   //     const orderLoading = toast.loading("Order is being placed");
@@ -50,7 +52,7 @@ export default function PaymentDetails() {
           <p className="text-gray-500 ">Subtotal</p>
           <p className="font-semibold">
             {/* {currencyFormatter(subTotal)} */}
-            0000
+            {subTotal}
           </p>
         </div>
         <div className="flex justify-between">
