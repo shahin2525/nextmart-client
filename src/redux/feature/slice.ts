@@ -88,7 +88,13 @@ export const citySelector = (state: RootState) => {
 export const shippingAddressSelector = (state: RootState) => {
   return state.cart.shippingAddress;
 };
-export const { addProduct, incrementProduct, decrementProduct, removeProduct } =
-  cartSlice.actions;
+export const {
+  addProduct,
+  incrementProduct,
+  decrementProduct,
+  removeProduct,
+  updateCity,
+  updateShippingAddress,
+} = cartSlice.actions;
 
 export default cartSlice.reducer;
