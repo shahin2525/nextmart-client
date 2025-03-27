@@ -90,6 +90,12 @@ export const subTotalSelector = (state: RootState) => {
   }, 0);
 };
 
+export const grandTotalSelector = (state: RootState) => {
+  const subTotal = subTotalSelector(state);
+  const shippingCost = shippingCostSelector(state);
+  return subTotal + shippingCost;
+};
+
 // address
 export const citySelector = (state: RootState) => {
   return state.cart.city;
@@ -100,13 +106,13 @@ export const shippingAddressSelector = (state: RootState) => {
 //order
 export const shippingCostSelector = (state: RootState) => {
   if (
-    state.cart.products &&
+    state.cart.city &&
     state.cart.city === "Dhaka" &&
     state.cart.products.length > 0
   ) {
     return 60;
   } else if (
-    state.cart.products &&
+    state.cart.city &&
     state.cart.city !== "Dhaka" &&
     state.cart.products.length > 0
   ) {
