@@ -3,12 +3,16 @@
 import { Button } from "@/components/ui/button";
 import { currencyFormatter } from "@/lib/currencyFormatter";
 import {
+  citySelector,
   grandTotalSelector,
+  orderedProductsSelector,
   orderSelector,
+  shippingAddressSelector,
   shippingCostSelector,
   subTotalSelector,
 } from "@/redux/feature/slice";
 import { useAppSelector } from "@/redux/hooks";
+import { toast } from "sonner";
 
 // import { useAppSelector } from "@/redux/hooks";
 
@@ -17,8 +21,26 @@ export default function PaymentDetails() {
   const shippingCost = useAppSelector(shippingCostSelector);
   const order = useAppSelector(orderSelector);
   const grandTotal = useAppSelector(grandTotalSelector);
+  const city = useAppSelector(citySelector);
+  const shippingAddress = useAppSelector(shippingAddressSelector);
+  const productCarts = useAppSelector(orderedProductsSelector);
   const handleOrder = () => {
     console.log(order);
+    const orderLoading = toast.loading("order is loading");
+    try {
+      if (productCarts?.length === 0) {
+        throw new Error("you do not add any product cart");
+      }
+      if (!city) {
+        throw new Error("you do not add city");
+      }
+      if (!shippingAddress) {
+        throw new Error("you do not add shipping address");
+      }
+      toast.success("order is created", { id: orderLoading });
+    } catch (err: any) {
+      toast.error(err?.message, { id: orderLoading });
+    }
   };
   //   const handleOrder = async () => {
   //     const orderLoading = toast.loading("Order is being placed");
