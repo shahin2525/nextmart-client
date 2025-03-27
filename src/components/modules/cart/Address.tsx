@@ -27,8 +27,8 @@ export default function Address() {
 
   const handleShippingSelect = (shipping: string) => {
     dispatch(updateShippingAddress(shipping));
-    console.log(citySelect);
-    console.log(shippingAddressSelect);
+    // console.log(citySelect);
+    // console.log(shippingAddressSelect);
   };
   return (
     <div className="border-2 border-white bg-background brightness-105 rounded-md col-span-4  p-5 ">

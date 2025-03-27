@@ -1,14 +1,22 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { subTotalSelector } from "@/redux/feature/slice";
+import {
+  orderSelector,
+  shippingCostSelector,
+  subTotalSelector,
+} from "@/redux/feature/slice";
 import { useAppSelector } from "@/redux/hooks";
 
 // import { useAppSelector } from "@/redux/hooks";
 
 export default function PaymentDetails() {
   const subTotal = useAppSelector(subTotalSelector);
-
+  const shippingCost = useAppSelector(shippingCostSelector);
+  const order = useAppSelector(orderSelector);
+  const handleOrder = () => {
+    console.log(order);
+  };
   //   const handleOrder = async () => {
   //     const orderLoading = toast.loading("Order is being placed");
   //     try {
@@ -65,7 +73,8 @@ export default function PaymentDetails() {
         <div className="flex justify-between">
           <p className="text-gray-500 ">Shipment Cost</p>
           <p className="font-semibold">
-            {/* {currencyFormatter(shippingCost)} */}0000
+            {/* {currencyFormatter(shippingCost)} */}
+            {shippingCost}
           </p>
         </div>
       </div>
@@ -77,7 +86,7 @@ export default function PaymentDetails() {
         </p>
       </div>
       <Button
-        // onClick={handleOrder}
+        onClick={handleOrder}
         className="w-full text-xl font-semibold py-5"
       >
         Order Now
