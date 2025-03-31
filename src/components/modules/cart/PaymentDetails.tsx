@@ -1,6 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
+import { useUser } from "@/context/UserContext";
 import { currencyFormatter } from "@/lib/currencyFormatter";
 import {
   citySelector,
@@ -12,6 +13,7 @@ import {
   subTotalSelector,
 } from "@/redux/feature/slice";
 import { useAppSelector } from "@/redux/hooks";
+import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 
 // import { useAppSelector } from "@/redux/hooks";
@@ -24,10 +26,15 @@ export default function PaymentDetails() {
   const city = useAppSelector(citySelector);
   const shippingAddress = useAppSelector(shippingAddressSelector);
   const productCarts = useAppSelector(orderedProductsSelector);
+  const user = useUser();
+  const router = useRouter();
   const handleOrder = () => {
-    console.log(order);
     const orderLoading = toast.loading("order is loading");
     try {
+      if (user === null) {
+        router.push("/login");
+        throw new Error("please login first");
+      }
       if (productCarts?.length === 0) {
         throw new Error("you do not add any product cart");
       }
