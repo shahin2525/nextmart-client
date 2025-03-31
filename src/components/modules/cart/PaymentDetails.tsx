@@ -13,6 +13,7 @@ import {
   subTotalSelector,
 } from "@/redux/feature/slice";
 import { useAppSelector } from "@/redux/hooks";
+import { createOrder } from "@/services/cart";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 
@@ -28,12 +29,16 @@ export default function PaymentDetails() {
   const productCarts = useAppSelector(orderedProductsSelector);
   const user = useUser();
   const router = useRouter();
-  const handleOrder = () => {
+  const handleOrder = async () => {
     const orderLoading = toast.loading("order is loading");
     try {
-      if (user === null) {
+      // if (user === null) {
+      //   router.push("/login");
+      //   throw new Error("please login first");
+      // }
+      if (!user.user) {
         router.push("/login");
-        throw new Error("please login first");
+        throw new Error("Please login first.");
       }
       if (productCarts?.length === 0) {
         throw new Error("you do not add any product cart");
@@ -44,45 +49,13 @@ export default function PaymentDetails() {
       if (!shippingAddress) {
         throw new Error("you do not add shipping address");
       }
+      const res = await createOrder(order);
+      console.log(res);
       toast.success("order is created", { id: orderLoading });
     } catch (err: any) {
       toast.error(err?.message, { id: orderLoading });
     }
   };
-  //   const handleOrder = async () => {
-  //     const orderLoading = toast.loading("Order is being placed");
-  //     try {
-  //       if (!user.user) {
-  //         router.push("/login");
-  //         throw new Error("Please login first.");
-  //       }
-
-  //       if (!city) {
-  //         throw new Error("City is missing");
-  //       }
-  //       if (!shippingAddress) {
-  //         throw new Error("Shipping address is missing");
-  //       }
-
-  //       if (cartProducts.length === 0) {
-  //         throw new Error("Cart is empty, what are you trying to order ??");
-  //       }
-
-  //       const res = await createOrder(order);
-
-  //       if (res.success) {
-  //         toast.success(res.message, { id: orderLoading });
-  //         dispatch(clearCart());
-  //         router.push(res.data.paymentUrl);
-  //       }
-
-  //       if (!res.success) {
-  //         toast.error(res.message, { id: orderLoading });
-  //       }
-  //     } catch (error: any) {
-  //       toast.error(error.message, { id: orderLoading });
-  //     }
-  //   };
 
   return (
     <div className="border-2 border-white bg-background brightness-105 rounded-md col-span-4 h-fit p-5">
