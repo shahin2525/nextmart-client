@@ -51,7 +51,13 @@ export default function PaymentDetails() {
       }
       const res = await createOrder(order);
       console.log(res);
-      toast.success("order is created", { id: orderLoading });
+      if (res.success) {
+        toast.success(res.message, { id: orderLoading });
+        router.push(res?.data.Payment_url);
+      }
+      if (!res.success) {
+        toast.error(res.message, { id: orderLoading });
+      }
     } catch (err: any) {
       toast.error(err?.message, { id: orderLoading });
     }
